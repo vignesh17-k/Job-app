@@ -4,13 +4,15 @@ import { toast } from 'react-toastify'
 import Wrapper from '../assets/wrappers/DashboardFormPage'
 import FormRow from './FormRow'
 import { Addjobapi } from '../Api/Addjob'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { Deletejob } from '../Reducer/Reducer'
 
 
 function AddJob() {
 
     const Location = useSelector(state=>state.State.User.location) 
     const token = useSelector(state => state.State.token)
+    const dispatch = useDispatch()
 
     const [addjob,setaddjob] = useState({
         position:"",
@@ -40,6 +42,7 @@ function AddJob() {
                if(response.status === 201){
                  // console.log(response)
                  toast.success("Job Created")
+                 dispatch(Deletejob())
                  setaddjob({
                    position:"",
                    company:"",

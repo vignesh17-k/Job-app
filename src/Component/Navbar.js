@@ -3,6 +3,7 @@ import { FaAlignLeft, FaUserCircle, FaCaretDown } from 'react-icons/fa';
 import Wrapper from '../assets/wrappers/Navbar';
 import { useDispatch, useSelector } from 'react-redux';
 import { Togglesidebar, ClearState} from '../Reducer/Reducer';
+import { disableDemoMode } from '../mock/demoService';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -17,6 +18,7 @@ function Navbar() {
   const Dispatch = useDispatch()
 
    const logout = () =>{
+        disableDemoMode()
         localStorage.removeItem("user")
         localStorage.removeItem("username")
         localStorage.removeItem("token")

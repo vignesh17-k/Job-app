@@ -4,7 +4,7 @@ import FormRow from './FormRow'
 import Wrapper from '../assets/wrappers/DashboardFormPage'
 import { toast } from 'react-toastify'
 import { Editjobapi } from '../Api/EditJobs'
-import { Edit, SingleEditJob } from '../Reducer/Reducer'
+import { Edit, SingleEditJob, Deletejob } from '../Reducer/Reducer'
 
 
 function EditJob() {
@@ -45,6 +45,7 @@ function EditJob() {
                  Editjobapi(Job,JobId,token).then(response =>{
                      if(response.status === 200){
                         toast.success("Job Modified...")
+                         dispatch(Deletejob())
                          dispatch(Edit(false)) 
                      }
                  }).catch(error=>{

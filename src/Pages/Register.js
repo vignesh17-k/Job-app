@@ -8,7 +8,8 @@ import { LoginApi } from '../Api/Login';
 import { useNavigate } from 'react-router-dom';
 import { Spinner } from 'reactstrap';
 import { useDispatch } from 'react-redux';
-import { GetToken, Userdata } from '../Reducer/Reducer';
+import { GetToken, Userdata, Alljob, Getstats } from '../Reducer/Reducer';
+import { enableDemoMode, getDefaultJobsPayload, getStats } from '../mock/demoService';
 
 
 function Register() {
@@ -28,12 +29,19 @@ function Register() {
     const dispatch = useDispatch()
 
   
-    const handletestuser =()=>{
-      const  testuser ={
-           email:"testUser@test.com",
-           password:"secret"
-        }
-        handleLogin(testuser)
+    const handletestuser = () => {
+        setloading(true)
+        const user = enableDemoMode()
+        localStorage.setItem("username", user.name)
+        localStorage.setItem("user", JSON.stringify(user))
+        localStorage.setItem("token", user.token)
+        dispatch(Userdata(user))
+        dispatch(GetToken(user.token))
+        dispatch(Alljob(getDefaultJobsPayload()))
+        dispatch(Getstats(getStats()))
+        setloading(false)
+        toast.success(`Welcome ${user.name}`)
+        navigate("/")
     }
  
  
